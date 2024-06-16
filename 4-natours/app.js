@@ -2,6 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 app.use(express.json());
+app.use((req,res,next)=>{
+  req.requestTime = new Date().toISOString();
+  next();
+})
+
 
 let tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
@@ -11,6 +16,7 @@ const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'Success',
     results: tours.length,
+    requestedAt:req.requestTime,
     data: {
       tours,
     },
