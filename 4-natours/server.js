@@ -16,6 +16,21 @@ mongoose
     console.error('DB connection error:', err);
   });
 
+const tourSchema = new mongoose.Schema({
+  name:{
+    type:String,
+    required:[true,'A Tour must have a Name'],
+    unique:true
+  },
+  rating:{
+    type:Number,
+    default:4.5
+  },
+  price:{
+    type:Number,
+    required:[true,'A Tour must have a price']
+  }
+})
 
 
 const port = process.env.PORT || 3000;
