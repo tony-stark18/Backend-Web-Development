@@ -6,6 +6,8 @@ const tourSchema = new mongoose.Schema({
     required: [true, 'A Tour must have a Name'],
     unique: true,
     trim: true,
+    minlength: [10, 'A tour name must have at least 10 characters'],
+    maxlength: [40, 'A tour name must have at most 40 characters'],
   },
   duration: {
     type: Number,
@@ -31,7 +33,13 @@ const tourSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'A Tour must have a price'],
   },
-  priceDiscount: Number,
+  priceDiscount: {
+    type: Number,
+    validate: function (val) {
+      return val < this.price;
+    },
+    message: 'Discount Price ({VALUE}) must be below the regular price',
+  },
   summary: {
     type: String,
     trim: true,
@@ -51,6 +59,10 @@ const tourSchema = new mongoose.Schema({
     default: Date.now(),
   },
   startDates: [Date],
+});
+//Document middleware - It runs before .save() and .create()
+tourSchema.pre('save', function () {
+  console.log(this);
 });
 const Tour = new mongoose.model('Tour', tourSchema);
 module.exports = Tour;
