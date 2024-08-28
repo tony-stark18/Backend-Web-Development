@@ -32,9 +32,9 @@
   {
     "id": 2,
     "name": "The Snow Adventurer",
-    "duration": 10,
+    "duration": 4,
     "maxGroupSize": 10,
-    "difficulty": "Hard",
+    "difficulty": "difficult",
     "ratingsAverage": 4.5,
     "ratingsQuantity": 13,
     "price": 997,
